@@ -4,11 +4,6 @@
       <!-- Image -->
       <div class="relative w-full h-[200px] overflow-hidden bg-[#0D1E33] rounded-2xl">
         <img :src="car.image" :alt="car.title" class="w-full h-full object-cover" loading="lazy" />
-        <div
-          class="absolute top-3 ltr:right-3 rtl:left-3 bg-black/45 backdrop-blur-sm rounded-lg px-2.5 py-0.5 text-[15px] font-bold text-white tracking-wide"
-        >
-          {{ car.page }}
-        </div>
       </div>
 
       <!-- Body -->

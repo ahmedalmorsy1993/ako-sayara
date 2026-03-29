@@ -67,7 +67,7 @@
 
         <!-- User -->
         <div
-          class="flex items-center gap-2 ltr:ml-1 rtl:mr-1 px-1 ltr:pr-3 rtl:pl-3 py-1 rounded-full bg-navy-700/60 border border-navy-500/60 cursor-pointer hover:bg-brand-blue/10 transition"
+          class="flex items-center gap-2 ltr:ml-1 rtl:mr-1 px-1 ltr:pr-3 rtl:pl-3 py-1 rounded-full cursor-pointer hover:bg-brand-blue/10 transition"
         >
           <img
             src="https://ui-avatars.com/api/?name=Ali&background=1B6FF2&color=fff&size=32"

@@ -59,11 +59,11 @@ const cars: CarData[] = [
 
 // Slot positions: percentage-based offset from inline-start
 const slotConfigs = [
-  { offset: -2, pos: -60,  scale: 0.72, opacity: 0,   z: 0,  brightness: 0.3 },
-  { offset: -1, pos: -5,   scale: 0.88, opacity: 0.5, z: 2,  brightness: 0.5 },
+  { offset: -2, pos: -100, scale: 0.72, opacity: 0,   z: 0,  brightness: 0.3 },
+  { offset: -1, pos: -30,  scale: 0.88, opacity: 0.5, z: 2,  brightness: 0.5 },
   { offset:  0, pos: 55,   scale: 1,    opacity: 1,   z: 10, brightness: 1   },
-  { offset:  1, pos: 165,  scale: 0.88, opacity: 0.5, z: 2,  brightness: 0.5 },
-  { offset:  2, pos: 240,  scale: 0.72, opacity: 0,   z: 0,  brightness: 0.3 },
+  { offset:  1, pos: 190,  scale: 0.88, opacity: 0.5, z: 2,  brightness: 0.5 },
+  { offset:  2, pos: 280,  scale: 0.72, opacity: 0,   z: 0,  brightness: 0.3 },
 ]
 
 const currentIndex = ref(2)

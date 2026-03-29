@@ -1,5 +1,5 @@
 <template>
-  <div class="car-card-wrapper w-[270px]" :class="{ 'is-active': active }">
+  <div class="car-card-wrapper w-[240px] sm:w-[270px]" :class="{ 'is-active': active }">
     <div class="car-card-inner rounded-2xl space-y-4 overflow-hidden p-3">
       <!-- Image -->
       <div class="relative w-full h-[200px] overflow-hidden bg-[#0D1E33] rounded-2xl">

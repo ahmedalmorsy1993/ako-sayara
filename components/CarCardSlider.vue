@@ -1,18 +1,7 @@
 <template>
-  <div class="flex items-center select-none" @mouseenter="pauseAuto" @mouseleave="resumeAuto">
-    <!-- Prev Arrow (left in LTR, right in RTL) -->
-    <button
-      class="relative z-30 w-10 h-10 flex items-center justify-center rounded-full bg-[#1A2E47]/80 backdrop-blur-md border border-white/[0.1] hover:bg-[#253D58] active:scale-90 transition-all duration-200 shrink-0 ltr:-mr-2 rtl:-ml-2 shadow-lg"
-      @click="prev"
-    >
-      <!-- Chevron pointing to inline-start -->
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="rtl:rotate-180">
-        <path d="M10 3L5 8l5 5" stroke="#8899AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-
+  <div class="relative flex items-center justify-center select-none" @mouseenter="pauseAuto" @mouseleave="resumeAuto">
     <!-- Cards Stack -->
-    <div class="relative w-[380px] h-[380px]">
+    <div class="relative w-[700px] h-[420px]">
       <template v-for="car in cars" :key="car.id">
         <div
           v-show="cardSlots[car.id]"
@@ -22,18 +11,29 @@
           <CarCard :car="car" :active="cardSlots[car.id]?.isCenter" />
         </div>
       </template>
-    </div>
 
-    <!-- Next Arrow (right in LTR, left in RTL) -->
-    <button
-      class="relative z-30 w-10 h-10 flex items-center justify-center rounded-full bg-[#1A2E47]/80 backdrop-blur-md border border-white/[0.1] hover:bg-[#253D58] active:scale-90 transition-all duration-200 shrink-0 ltr:-ml-2 rtl:-mr-2 shadow-lg"
-      @click="next"
-    >
-      <!-- Chevron pointing to inline-end -->
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="rtl:rotate-180">
-        <path d="M6 3l5 5-5 5" stroke="#8899AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
+      <!-- Prev Arrow - on left edge of active card -->
+      <button
+        class="absolute z-20 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/[0.08] hover:bg-white/20 active:scale-90 transition-all duration-200 shadow-lg"
+        :style="{ insetInlineStart: '200px' }"
+        @click="prev"
+      >
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" class="rtl:rotate-180">
+          <path d="M10 3L5 8l5 5" stroke="#C4D3E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <!-- Next Arrow - on right edge of active card -->
+      <button
+        class="absolute z-20 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/[0.08] hover:bg-white/20 active:scale-90 transition-all duration-200 shadow-lg"
+        :style="{ insetInlineStart: '490px' }"
+        @click="next"
+      >
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" class="rtl:rotate-180">
+          <path d="M6 3l5 5-5 5" stroke="#C4D3E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -57,13 +57,13 @@ const cars: CarData[] = [
   { id: 5, image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500&h=300&fit=crop', page: 16, title: 'Chevrolet Corvette C8', year: '2023', km: "8,500 Km's", engine: '6.2 litres', rating: 4.9 },
 ]
 
-// Slot positions: percentage-based offset from inline-start
+// Slot positions: centered layout with equal spacing
 const slotConfigs = [
-  { offset: -2, pos: -100, scale: 0.72, opacity: 0,   z: 0,  brightness: 0.3 },
-  { offset: -1, pos: -30,  scale: 0.88, opacity: 0.5, z: 2,  brightness: 0.5 },
-  { offset:  0, pos: 55,   scale: 1,    opacity: 1,   z: 10, brightness: 1   },
-  { offset:  1, pos: 190,  scale: 0.88, opacity: 0.5, z: 2,  brightness: 0.5 },
-  { offset:  2, pos: 280,  scale: 0.72, opacity: 0,   z: 0,  brightness: 0.3 },
+  { offset: -2, pos: -80,  scale: 0.75, opacity: 0,    z: 0,  brightness: 0.3 },
+  { offset: -1, pos: -10,  scale: 0.85, opacity: 0.7,  z: 2,  brightness: 0.45 },
+  { offset:  0, pos: 215,  scale: 1,    opacity: 1,    z: 10, brightness: 1   },
+  { offset:  1, pos: 440,  scale: 0.85, opacity: 0.7,  z: 2,  brightness: 0.45 },
+  { offset:  2, pos: 560,  scale: 0.75, opacity: 0,    z: 0,  brightness: 0.3 },
 ]
 
 const currentIndex = ref(2)

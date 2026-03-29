@@ -4,7 +4,7 @@
       <!-- Main Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[240px_1fr_1fr_1.5fr] gap-10 pb-10">
         <!-- Brand Column -->
-        <div>
+        <div class="sm:col-span-2 lg:col-span-1">
           <div class="flex items-center gap-2 mb-5">
             <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
               <path d="M14 2L2 8l12 6 12-6-12-6z" fill="#1B6FF2" />
@@ -70,9 +70,9 @@
         </div>
 
         <!-- Quick Search -->
-        <div>
+        <div class="sm:col-span-2 lg:col-span-1">
           <h4 class="text-[15px] font-bold text-gray-900 mb-4">{{ $t('footer.quickSearch') }}</h4>
-          <div class="grid grid-cols-2 gap-x-4">
+          <div class="grid grid-cols-2 gap-x-6">
             <ul class="space-y-2.5">
               <li><a href="#" class="text-[13px] text-gray-500 hover:text-brand-blue transition">{{ $t('footer.findDealer') }}</a></li>
               <li><a href="#" class="text-[13px] text-gray-500 hover:text-brand-blue transition">{{ $t('footer.findBrand') }}</a></li>
@@ -94,9 +94,9 @@
       </div>
 
       <!-- Bottom Bar -->
-      <div class="flex items-center justify-between py-5 border-t border-gray-200 flex-wrap gap-4">
-        <p class="text-[13px] text-gray-400">{{ $t('footer.allRights') }}</p>
-        <div class="flex items-center gap-6 flex-wrap">
+      <div class="flex flex-col sm:flex-row items-center justify-between py-5 border-t border-gray-200 gap-4">
+        <p class="text-[13px] text-gray-400 text-center sm:text-left">{{ $t('footer.allRights') }}</p>
+        <div class="flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
           <a href="#" class="text-[13px] text-gray-500 hover:text-brand-blue transition">{{ $t('footer.faqs') }}</a>
           <a href="#" class="text-[13px] text-gray-500 hover:text-brand-blue transition">{{ $t('footer.terms') }}</a>
           <a href="#" class="text-[13px] text-gray-500 hover:text-brand-blue transition">{{ $t('footer.privacy') }}</a>

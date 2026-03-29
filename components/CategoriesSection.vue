@@ -1,6 +1,6 @@
 <template>
-  <section class="pb-16">
-    <div class="max-w-[1280px] mx-auto px-6">
+  <section class="pb-0 pt-4" style="background: linear-gradient(180deg, #000623 0%, #010723 50%, #40A0EF 85%, #ffffff 100%)">
+    <div class="max-w-[1280px] mx-auto px-6 pb-20">
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         <CategoryCard
           v-for="cat in categories"

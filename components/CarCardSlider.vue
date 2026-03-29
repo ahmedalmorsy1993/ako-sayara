@@ -1,11 +1,12 @@
 <template>
   <div class="flex items-center select-none" @mouseenter="pauseAuto" @mouseleave="resumeAuto">
-    <!-- Left Arrow -->
+    <!-- Prev Arrow (left in LTR, right in RTL) -->
     <button
       class="relative z-30 w-10 h-10 flex items-center justify-center rounded-full bg-[#1A2E47]/80 backdrop-blur-md border border-white/[0.1] hover:bg-[#253D58] active:scale-90 transition-all duration-200 shrink-0 ltr:-mr-2 rtl:-ml-2 shadow-lg"
       @click="prev"
     >
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <!-- Chevron pointing to inline-start -->
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="rtl:rotate-180">
         <path d="M10 3L5 8l5 5" stroke="#8899AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
@@ -23,12 +24,13 @@
       </template>
     </div>
 
-    <!-- Right Arrow -->
+    <!-- Next Arrow (right in LTR, left in RTL) -->
     <button
       class="relative z-30 w-10 h-10 flex items-center justify-center rounded-full bg-[#1A2E47]/80 backdrop-blur-md border border-white/[0.1] hover:bg-[#253D58] active:scale-90 transition-all duration-200 shrink-0 ltr:-ml-2 rtl:-mr-2 shadow-lg"
       @click="next"
     >
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <!-- Chevron pointing to inline-end -->
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="rtl:rotate-180">
         <path d="M6 3l5 5-5 5" stroke="#8899AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
@@ -55,30 +57,29 @@ const cars: CarData[] = [
   { id: 5, image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500&h=300&fit=crop', page: 16, title: 'Chevrolet Corvette C8', year: '2023', km: "8,500 Km's", engine: '6.2 litres', rating: 4.9 },
 ]
 
+// Slot positions: percentage-based offset from inline-start
 const slotConfigs = [
-  { offset: -2, left: -60,  scale: 0.72, opacity: 0,   z: 0,  brightness: 0.3 },
-  { offset: -1, left: -5,   scale: 0.88, opacity: 0.5, z: 2,  brightness: 0.5 },
-  { offset:  0, left: 55,   scale: 1,    opacity: 1,   z: 10, brightness: 1   },
-  { offset:  1, left: 165,  scale: 0.88, opacity: 0.5, z: 2,  brightness: 0.5 },
-  { offset:  2, left: 240,  scale: 0.72, opacity: 0,   z: 0,  brightness: 0.3 },
+  { offset: -2, pos: -60,  scale: 0.72, opacity: 0,   z: 0,  brightness: 0.3 },
+  { offset: -1, pos: -5,   scale: 0.88, opacity: 0.5, z: 2,  brightness: 0.5 },
+  { offset:  0, pos: 55,   scale: 1,    opacity: 1,   z: 10, brightness: 1   },
+  { offset:  1, pos: 165,  scale: 0.88, opacity: 0.5, z: 2,  brightness: 0.5 },
+  { offset:  2, pos: 240,  scale: 0.72, opacity: 0,   z: 0,  brightness: 0.3 },
 ]
 
 const currentIndex = ref(2)
 
-// Map each car.id → its current slot config (or null if not visible)
+// Map each car.id → its slot config
 const cardSlots = computed(() => {
   const total = cars.length
-  const map: Record<number, { left: number; scale: number; opacity: number; z: number; brightness: number; isCenter: boolean } | null> = {}
+  const map: Record<number, { pos: number; scale: number; opacity: number; z: number; brightness: number; isCenter: boolean } | null> = {}
 
-  // Initialize all as null
   cars.forEach(c => { map[c.id] = null })
 
-  // Assign the 5 visible slots
   slotConfigs.forEach((slot) => {
     const idx = ((currentIndex.value + slot.offset) % total + total) % total
     const car = cars[idx]
     map[car.id] = {
-      left: slot.left,
+      pos: slot.pos,
       scale: slot.scale,
       opacity: slot.opacity,
       z: slot.z,
@@ -92,11 +93,11 @@ const cardSlots = computed(() => {
 
 function getStyle(carId: number) {
   const slot = cardSlots.value[carId]
-  if (!slot) return { opacity: 0, zIndex: 0 }
+  if (!slot) return { opacity: '0', zIndex: 0 }
   return {
-    left: `${slot.left}px`,
+    insetInlineStart: `${slot.pos}px`,
     transform: `translateY(-50%) scale(${slot.scale})`,
-    opacity: slot.opacity,
+    opacity: `${slot.opacity}`,
     zIndex: slot.z,
     filter: slot.brightness < 1 ? `brightness(${slot.brightness})` : 'none',
   }
@@ -110,7 +111,7 @@ function prev() {
   currentIndex.value = (currentIndex.value - 1 + cars.length) % cars.length
 }
 
-// Auto-slide
+// Auto-slide every 4s, pause on hover
 let autoTimer: ReturnType<typeof setInterval> | null = null
 
 function startAuto() {
@@ -130,7 +131,7 @@ onUnmounted(pauseAuto)
 <style scoped>
 .slider-card {
   transition:
-    left 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    inset-inline-start 0.5s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
     opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
     filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);

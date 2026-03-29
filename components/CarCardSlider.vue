@@ -1,0 +1,138 @@
+<template>
+  <div class="flex items-center select-none" @mouseenter="pauseAuto" @mouseleave="resumeAuto">
+    <!-- Left Arrow -->
+    <button
+      class="relative z-30 w-10 h-10 flex items-center justify-center rounded-full bg-[#1A2E47]/80 backdrop-blur-md border border-white/[0.1] hover:bg-[#253D58] active:scale-90 transition-all duration-200 shrink-0 ltr:-mr-2 rtl:-ml-2 shadow-lg"
+      @click="prev"
+    >
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M10 3L5 8l5 5" stroke="#8899AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- Cards Stack -->
+    <div class="relative w-[380px] h-[380px]">
+      <template v-for="car in cars" :key="car.id">
+        <div
+          v-show="cardSlots[car.id]"
+          class="slider-card absolute top-1/2"
+          :style="getStyle(car.id)"
+        >
+          <CarCard :car="car" :active="cardSlots[car.id]?.isCenter" />
+        </div>
+      </template>
+    </div>
+
+    <!-- Right Arrow -->
+    <button
+      class="relative z-30 w-10 h-10 flex items-center justify-center rounded-full bg-[#1A2E47]/80 backdrop-blur-md border border-white/[0.1] hover:bg-[#253D58] active:scale-90 transition-all duration-200 shrink-0 ltr:-ml-2 rtl:-mr-2 shadow-lg"
+      @click="next"
+    >
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M6 3l5 5-5 5" stroke="#8899AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</template>
+
+<script setup lang="ts">
+interface CarData {
+  id: number
+  image: string
+  page: number
+  title: string
+  year: string
+  km: string
+  engine: string
+  rating: number
+}
+
+const cars: CarData[] = [
+  { id: 1, image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=500&h=300&fit=crop', page: 12, title: 'BMW 7 Series 2023', year: '2023', km: "15,000 Km's", engine: '3.0 litres', rating: 4.8 },
+  { id: 2, image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=500&h=300&fit=crop', page: 13, title: 'Mercedes-Benz S-Class', year: '2022', km: "22,000 Km's", engine: '2.0 litres', rating: 4.7 },
+  { id: 3, image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=500&h=300&fit=crop', page: 14, title: 'Make model model varient', year: '2011', km: "29,000 Km's", engine: '1.6 litres', rating: 4.9 },
+  { id: 4, image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&h=300&fit=crop', page: 15, title: 'Porsche 911 Carrera', year: '2024', km: "5,000 Km's", engine: '3.0 litres', rating: 5.0 },
+  { id: 5, image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500&h=300&fit=crop', page: 16, title: 'Chevrolet Corvette C8', year: '2023', km: "8,500 Km's", engine: '6.2 litres', rating: 4.9 },
+]
+
+const slotConfigs = [
+  { offset: -2, left: -60,  scale: 0.72, opacity: 0,   z: 0,  brightness: 0.3 },
+  { offset: -1, left: -5,   scale: 0.88, opacity: 0.5, z: 2,  brightness: 0.5 },
+  { offset:  0, left: 55,   scale: 1,    opacity: 1,   z: 10, brightness: 1   },
+  { offset:  1, left: 165,  scale: 0.88, opacity: 0.5, z: 2,  brightness: 0.5 },
+  { offset:  2, left: 240,  scale: 0.72, opacity: 0,   z: 0,  brightness: 0.3 },
+]
+
+const currentIndex = ref(2)
+
+// Map each car.id → its current slot config (or null if not visible)
+const cardSlots = computed(() => {
+  const total = cars.length
+  const map: Record<number, { left: number; scale: number; opacity: number; z: number; brightness: number; isCenter: boolean } | null> = {}
+
+  // Initialize all as null
+  cars.forEach(c => { map[c.id] = null })
+
+  // Assign the 5 visible slots
+  slotConfigs.forEach((slot) => {
+    const idx = ((currentIndex.value + slot.offset) % total + total) % total
+    const car = cars[idx]
+    map[car.id] = {
+      left: slot.left,
+      scale: slot.scale,
+      opacity: slot.opacity,
+      z: slot.z,
+      brightness: slot.brightness,
+      isCenter: slot.offset === 0,
+    }
+  })
+
+  return map
+})
+
+function getStyle(carId: number) {
+  const slot = cardSlots.value[carId]
+  if (!slot) return { opacity: 0, zIndex: 0 }
+  return {
+    left: `${slot.left}px`,
+    transform: `translateY(-50%) scale(${slot.scale})`,
+    opacity: slot.opacity,
+    zIndex: slot.z,
+    filter: slot.brightness < 1 ? `brightness(${slot.brightness})` : 'none',
+  }
+}
+
+function next() {
+  currentIndex.value = (currentIndex.value + 1) % cars.length
+}
+
+function prev() {
+  currentIndex.value = (currentIndex.value - 1 + cars.length) % cars.length
+}
+
+// Auto-slide
+let autoTimer: ReturnType<typeof setInterval> | null = null
+
+function startAuto() {
+  autoTimer = setInterval(next, 4000)
+}
+function pauseAuto() {
+  if (autoTimer) { clearInterval(autoTimer); autoTimer = null }
+}
+function resumeAuto() {
+  if (!autoTimer) startAuto()
+}
+
+onMounted(startAuto)
+onUnmounted(pauseAuto)
+</script>
+
+<style scoped>
+.slider-card {
+  transition:
+    left 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>

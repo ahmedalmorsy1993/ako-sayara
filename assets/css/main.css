@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #000623;
+  --color-brand-cyan: #1BB2DE;
+  --color-brand-green: #6BBC61;
+  --color-brand-blue: #1B6FF2;
+  --gradient-card-border: linear-gradient(168.82deg, #1BB2DE 1.7%, rgba(123, 127, 234, 0) 27.12%, rgba(123, 127, 234, 0) 61.28%, #1BB2DE 99.52%);
+  --gradient-search-btn: linear-gradient(36.27deg, #6E6CD8 -11.75%, #40A0EF 37.46%, #77E1EE 90.81%);
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--color-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  [dir="rtl"] {
+    font-family: 'Inter', 'Noto Sans Arabic', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  /* Gradient border card - uses a wrapper technique */
+  .card-glow-border {
+    position: relative;
+    border-radius: 16px;
+    padding: 1px;
+    background: var(--gradient-card-border);
+  }
+
+  .card-glow-border-inner {
+    border-radius: 15px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #0D1E33 0%, #081426 100%);
+  }
+
+  .btn-search-gradient {
+    background: var(--gradient-search-btn);
+  }
+}

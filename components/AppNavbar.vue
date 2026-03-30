@@ -3,12 +3,7 @@
     <div class="max-w-[1280px] mx-auto px-6 flex items-center justify-between h-16">
       <!-- Logo -->
       <NuxtLink :to="localePath('/')" class="flex items-center gap-2 shrink-0">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-          <path d="M14 2L2 8l12 6 12-6-12-6z" fill="#1B6FF2" />
-          <path d="M2 20l12 6 12-6" stroke="#1B6FF2" stroke-width="2" fill="none" />
-          <path d="M2 14l12 6 12-6" stroke="#1B6FF2" stroke-width="2" fill="none" />
-        </svg>
-        <span class="text-lg font-bold text-white">Ako Sayara</span>
+       <img src="~/assets/images/logo.svg" alt="Logo"/>
       </NuxtLink>
 
       <!-- Desktop Nav Links -->
@@ -49,20 +44,25 @@
       <!-- Right Actions -->
       <div class="hidden lg:flex items-center gap-1">
         <button
-          v-for="action in actions"
-          :key="action.label"
-          :aria-label="action.label"
-          class="w-9 h-9 flex items-center justify-center rounded-full bg-navy-700/60 border border-navy-500/60 hover:bg-brand-blue/15 hover:border-brand-blue/30 transition"
+         
+          class="w-9 h-9 flex items-center justify-center   transition"
         >
-          <Icon :name="action.icon" class="w-5 h-5 text-muted-light" />
+        <img src="~/assets/images/search.png" alt="Search"/>
         </button>
+           <button
+         
+          class="w-9 h-9 flex items-center justify-center rounded-full  transition"
+        >
+        <img src="~/assets/images/notification.png" alt="notification"/>
+        </button>  
+      
 
         <!-- Language Switcher -->
         <button
           @click="toggleLocale"
-          class="w-9 h-9 flex items-center justify-center rounded-full bg-navy-700/60 border border-navy-500/60 hover:bg-brand-blue/15 hover:border-brand-blue/30 transition text-xs font-bold text-muted-light"
+          class="w-9 h-9 flex items-center justify-center"
         >
-          {{ locale === 'en' ? 'AR' : 'EN' }}
+        <img src="~/assets/images/language-switcher.png" alt="language-switcher"/>
         </button>
 
         <!-- User -->

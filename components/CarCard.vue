@@ -1,5 +1,5 @@
 <template>
-  <div class="car-card-wrapper w-[240px] sm:w-[270px]" :class="{ 'is-active': active }">
+  <div class="car-card-wrapper w-[300px] sm:w-[330px]" :class="{ 'is-active': active }">
     <div class="car-card-inner rounded-2xl space-y-4 overflow-hidden p-3">
       <!-- Image -->
       <div class="relative w-full h-[200px] overflow-hidden bg-[#0D1E33] rounded-2xl">
@@ -11,7 +11,7 @@
         <!-- Badge + Rating -->
         <div class="flex items-center justify-between mb-2">
           <span
-            class="px-2.5 py-[2px] bg-brand-green/10 text-brand-green text-[11px] font-bold rounded"
+            class="px-2.5 py-[2px] bg-brand-green/10 text-brand-green text-[14px]  rounded"
           >
             {{ $t('hero.bestSeller') }}
           </span>
@@ -22,12 +22,12 @@
                 fill="#FFD700"
               />
             </svg>
-            <span class="text-[12px] font-bold text-brand-gold">{{ car.rating }}</span>
+            <span class="text-[12px]  text-brand-gold">{{ car.rating }}</span>
           </div>
         </div>
 
         <!-- Title -->
-        <h3 class="text-[15px] font-bold text-white mb-2.5 leading-snug">{{ car.title }}</h3>
+        <h3 class="text-[16px]  text-white mb-2.5 leading-snug">{{ car.title }}</h3>
 
         <!-- Specs -->
         <div class="flex items-center gap-1.5 mb-1.5 flex-wrap">

@@ -1,7 +1,7 @@
 <template>
   <div class="relative flex items-center justify-center select-none" @mouseenter="pauseAuto" @mouseleave="resumeAuto">
     <!-- Cards Stack -->
-    <div class="relative w-full max-w-[600px] h-[420px] sm:h-[440px]">
+    <div class="relative w-full w-[800px] h-[420px] sm:h-[440px]">
       <template v-for="car in cars" :key="car.id">
         <div
           v-show="cardSlots[car.id]"
@@ -14,8 +14,7 @@
 
       <!-- Prev Arrow -->
       <button
-        class="absolute z-20 top-[38%] left-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/[0.08] hover:bg-white/20 active:scale-90 transition-all duration-200 shadow-lg"
-        style="margin-left: -140px"
+        class="absolute z-30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full  backdrop-blur-sm border border-white/10 hover:bg-white/10 active:scale-90 transition-all duration-200 shadow-xl ml-[-140px] sm:ml-[-160px]"
         @click="prev"
       >
         <svg width="18" height="18" viewBox="0 0 16 16" fill="none" class="rtl:rotate-180">
@@ -25,8 +24,7 @@
 
       <!-- Next Arrow -->
       <button
-        class="absolute z-20 top-[38%] left-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/[0.08] hover:bg-white/20 active:scale-90 transition-all duration-200 shadow-lg"
-        style="margin-left: 100px"
+        class="absolute z-30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full bg-white/5 backdrop-blur-xl border border-white/10 hover:bg-white/10 active:scale-90 transition-all duration-200 shadow-xl ml-[140px] sm:ml-[160px]"
         @click="next"
       >
         <svg width="18" height="18" viewBox="0 0 16 16" fill="none" class="rtl:rotate-180">
@@ -97,7 +95,9 @@ function getStyle(carId: number) {
     transform: `translate(-50%, -50%) translateX(${slot.xPercent}%) scale(${slot.scale})`,
     opacity: `${slot.opacity}`,
     zIndex: slot.z,
-    filter: slot.brightness < 1 ? `brightness(${slot.brightness})` : 'none',
+    filter: slot.brightness < 1
+      ? `brightness(${slot.brightness}) blur(4px)`
+      : 'none',
   }
 }
 

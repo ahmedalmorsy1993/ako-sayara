@@ -92,29 +92,33 @@ const { t } = useI18n();
 
 <style scoped>
 .car-card-wrapper {
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 1px;
-  background: transparent;
-  border: 1px solid rgba(26, 48, 80, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
   transition: all 0.5s cubic-bezier(0.4, 0, 0.15, 1);
 }
 
 .car-card-wrapper.is-active {
-  border: none;
-  padding: 1.5px;
   background: linear-gradient(
     168.82deg,
-    #1bb2de 1.7%,
+    rgba(27, 178, 222, 0.15) 1.7%,
     rgba(123, 127, 234, 0) 27.12%,
     rgba(123, 127, 234, 0) 61.28%,
-    #1bb2de 99.52%
+    rgba(27, 178, 222, 0.15) 99.52%
   );
+  border: 1px solid rgba(27, 178, 222, 0.3);
   box-shadow:
-    0 0 30px rgba(27, 178, 222, 0.12),
-    0 20px 60px rgba(0, 0, 0, 0.4);
+    0 0 40px rgba(27, 178, 222, 0.1),
+    0 20px 80px rgba(0, 0, 0, 0.5);
+  transform: scale(1.02);
 }
 
 .car-card-inner {
-  background: linear-gradient(180deg, #0d1e33 0%, #081426 100%);
+  background: rgba(13, 30, 51, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 19px;
 }
 </style>

@@ -2,11 +2,11 @@
   <section class="relative  pt-14 pb-28 overflow-hidden">
     <div class="max-w-[1280px] mx-auto px-6 flex items-center justify-between gap-6 relative z-10 max-md:flex-col max-md:text-center">
       <!-- Left Content -->
-      <div class="flex-1 max-w-[460px] max-md:max-w-full">
-        <h1 class="text-[42px] max-lg:text-[36px] max-md:text-[32px] max-sm:text-[28px]  leading-[1.15] text-white tracking-tight mb-4">
+      <div class="flex-1 max-w-[660px] max-md:max-w-full">
+        <h1 class="text-[64px] max-lg:text-[36px] max-md:text-[32px] max-sm:text-[28px]  leading-[1.15] text-white tracking-tight mb-4">
           {{ $t('hero.title') }}
         </h1>
-        <p class="text-base text-muted leading-relaxed max-w-[380px] max-md:max-w-full max-md:mx-auto">
+        <p class="text-[24px] text-muted leading-relaxed max-w-[380px] max-md:max-w-full max-md:mx-auto">
           {{ $t('hero.subtitle') }}
         </p>
       </div>
